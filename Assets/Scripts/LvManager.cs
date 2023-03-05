@@ -6,16 +6,17 @@ public class LvManager : MonoBehaviour
 {
     public List<GameObject> map;
     public GameObject finalMap;
-
     private int mapcount = 5;
     private int lv = 1;
-    private 
 
-    void Start()
-    {
-        
+    void Awake() {
+       
     }
 
+    void Start() {
+        // gameObject.GetComponent<PlayerCripts>().playerIsMoving(false);
+        
+    }
     
     void Update()
     {

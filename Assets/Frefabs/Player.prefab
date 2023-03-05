@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 7132667503767509753}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,5 +180,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boostSpeed: 4
   baseSpeed: 2
-  squ: {fileID: 0}
+  square: {fileID: 5386009673992257150, guid: d248b26154757614e9da278c1f22b8b7, type: 3}
   gp: {fileID: 8771700976742773993}
