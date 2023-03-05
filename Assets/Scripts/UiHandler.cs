@@ -6,7 +6,6 @@ public class UiHandler : MonoBehaviour
 {
     public Canvas loadingCanvas;
     public Canvas playingCavas;
-    
     public GameObject startPoint;
     public GameObject player;
     private void Awake() {
