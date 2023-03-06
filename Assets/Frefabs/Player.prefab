@@ -181,3 +181,4 @@ MonoBehaviour:
   baseSpeed: 4
   square: {fileID: 5386009673992257150, guid: d248b26154757614e9da278c1f22b8b7, type: 3}
   gp: {fileID: 8771700976742773993}
+  isMoving: 0

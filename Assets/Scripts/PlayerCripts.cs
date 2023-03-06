@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PlayerCripts : MonoBehaviour
 {
-    [SerializeField] float baseSpeed =4f;
+    [SerializeField] float baseSpeed = 4f;
     [SerializeField] GameObject square;
     [SerializeField] Transform gp;
+   
     BoxCollider2D boxCollider2D;
     // public bool isMoving = false;
 
@@ -29,10 +30,10 @@ public class PlayerCripts : MonoBehaviour
                 // Debug.Log(rb2d.transform.position);
                 Instantiate(square, gp.position, transform.rotation);
             }
-            //  StartCoroutine(waitALittleTime(transform));
+
+        //  StartCoroutine(waitALittleTime(transform));
     }
 
-    // public void get
 
     // IEnumerator waitALittleTime(Transform transform123)
     // {
@@ -42,7 +43,8 @@ public class PlayerCripts : MonoBehaviour
     //         SceneManager.LoadScene(0);
     //     }
     // }
-    public float getBaseSpeed(){
+    public float getBaseSpeed()
+    {
         return baseSpeed;
     }
 }
