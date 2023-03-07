@@ -28,6 +28,7 @@ public class WinPoint : MonoBehaviour
         if(other.tag == "Player" ){
             int timeValue;
             int.TryParse(time.text,out timeValue);
+            PlayerPrefs.SetInt("Score",PlayerPrefs.GetInt("Score") + 13);
             PlayerPrefs.SetInt("TimePlay",timeValue);
             PlayerPrefs.SetInt("Current_Level", (PlayerPrefs.GetInt("Current_Level")+1));
             StartCoroutine(routine: NewLevel());

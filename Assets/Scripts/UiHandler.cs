@@ -8,10 +8,18 @@ public class UiHandler : MonoBehaviour
     public Canvas playingCavas;
     public GameObject startPoint;
     public GameObject player;
-    
+    public GameObject clone;
     public FollowingCamera mainCamera;
-    private void Awake() {
+    public GameObject AudioPlayer;
+    AudioSource AudioPlayerSoure1;
+    private void Awake()
+    {
         playingCavas.gameObject.SetActive(false);
+    }
+
+    void Start()
+    {
+            AudioPlayerSoure1 =AudioPlayer.GetComponent<AudioSource>();
     }
     public void startPlay()
     {
@@ -19,8 +27,25 @@ public class UiHandler : MonoBehaviour
         loadingCanvas.gameObject.SetActive(false);
         playingCavas.gameObject.SetActive(true);
 
-        Instantiate(player,startPoint.transform.position, Quaternion.identity);
-    
+        clone = Instantiate(player, startPoint.transform.position, Quaternion.identity);
+
+    }
+
+    public void settingPlayMusic()
+    {
+
+        if (AudioPlayerSoure1 != null)
+        {
+            if (AudioPlayerSoure1.mute == true)
+            {
+                AudioPlayerSoure1.mute = false;
+            }
+            else
+            {
+                AudioPlayerSoure1.mute = true;
+            }
+        }
+
     }
 
 }
