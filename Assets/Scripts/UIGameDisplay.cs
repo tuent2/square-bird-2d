@@ -18,7 +18,7 @@ public class UIGameDisplay : MonoBehaviour
 
     void Start()
     {   
-
+        Debug.Log(PlayerPrefs.GetInt("Current_Level"));
         currentLv.text =  PlayerPrefs.GetInt("Current_Level")+"";
         nextLv.text = (PlayerPrefs.GetInt("Current_Level")+1)+"";
         timePlay = PlayerPrefs.GetInt("TimePlay");

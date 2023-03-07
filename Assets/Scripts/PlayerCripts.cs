@@ -32,9 +32,20 @@ public class PlayerCripts : MonoBehaviour
     {
         Vector2 playerVerlocity = new Vector2(baseSpeed, rb2d.velocity.y);
         rb2d.velocity = playerVerlocity;
-        if (Input.GetKeyDown("space"))
-        {
+        // if (Input.GetKeyDown("space"))
+        // {
             
+        //     this.hit = Physics2D.Raycast(rb2d.transform.position + new Vector3(0,1f,0)  , Vector3.up, 0.5f);
+        //     if (this.hit.collider == null)
+        //     {
+        //         rb2d.transform.position = new Vector2(rb2d.transform.position.x, rb2d.transform.position.y + 1f);
+        //         Instantiate(square, gp.position, transform.rotation);
+        //         audioPlayer.playDropEggsClip();
+        //     }
+        // }
+    }
+
+    private void OnMouseDown() {
             this.hit = Physics2D.Raycast(rb2d.transform.position + new Vector3(0,1f,0)  , Vector3.up, 0.5f);
             if (this.hit.collider == null)
             {
@@ -42,7 +53,6 @@ public class PlayerCripts : MonoBehaviour
                 Instantiate(square, gp.position, transform.rotation);
                 audioPlayer.playDropEggsClip();
             }
-        }
     }
 
     public float getBaseSpeed()
