@@ -14,10 +14,4 @@ public class ScoreManager : MonoBehaviour
             this.Score = PlayerPrefs.GetInt("Score");
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

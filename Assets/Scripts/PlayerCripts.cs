@@ -7,7 +7,7 @@ public class PlayerCripts : MonoBehaviour
     [SerializeField] float baseSpeed = 4f;
     [SerializeField] GameObject square;
     [SerializeField] Transform gp;
-
+    [SerializeField] ParticleSystem groundParticleSystem;
     BoxCollider2D boxCollider2D;
     // public bool isMoving = false;
     RaycastHit2D hit;
@@ -15,12 +15,13 @@ public class PlayerCripts : MonoBehaviour
     Rigidbody2D rb2d;
     AudioPlayer audioPlayer;
     FollowingCamera followingCamera;
-    private void Awake() {
+    private void Awake()
+    {
         audioPlayer = FindObjectOfType<AudioPlayer>();
         followingCamera = FindAnyObjectByType<FollowingCamera>();
     }
 
-    
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -34,7 +35,7 @@ public class PlayerCripts : MonoBehaviour
         rb2d.velocity = playerVerlocity;
         // if (Input.GetKeyDown("space"))
         // {
-            
+
         //     this.hit = Physics2D.Raycast(rb2d.transform.position + new Vector3(0,1f,0)  , Vector3.up, 0.5f);
         //     if (this.hit.collider == null)
         //     {
@@ -43,33 +44,61 @@ public class PlayerCripts : MonoBehaviour
         //         audioPlayer.playDropEggsClip();
         //     }
         // }
-    }
 
-    private void OnMouseDown() {
-            this.hit = Physics2D.Raycast(rb2d.transform.position + new Vector3(0,1f,0)  , Vector3.up, 0.5f);
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+
+            this.hit = Physics2D.Raycast(rb2d.transform.position + new Vector3(0, 1f, 0), Vector3.up, 0.5f);
             if (this.hit.collider == null)
             {
                 rb2d.transform.position = new Vector2(rb2d.transform.position.x, rb2d.transform.position.y + 1f);
                 Instantiate(square, gp.position, transform.rotation);
                 audioPlayer.playDropEggsClip();
+                Debug.Log(Application.platform );
+                
+                Handheld.Vibrate();
+                
+
             }
+        }
     }
+
+    // private void OnMouseDown() {
+    //         this.hit = Physics2D.Raycast(rb2d.transform.position + new Vector3(0,1f,0)  , Vector3.up, 0.5f);
+    //         if (this.hit.collider == null)
+    //         {
+    //             rb2d.transform.position = new Vector2(rb2d.transform.position.x, rb2d.transform.position.y + 1f);
+    //             Instantiate(square, gp.position, transform.rotation);
+    //             audioPlayer.playDropEggsClip();
+    //         }
+    // }
 
     public float getBaseSpeed()
     {
         return baseSpeed;
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.tag.Equals("Block")){
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag.Equals("Block"))
+        {
             followingCamera.setMainCameraMove(false);
             audioPlayer.playCollideClip();
             StartCoroutine(routine: NewLevel());
         }
+        if(other.gameObject.tag.Equals("Prevent")){
+            groundParticleSystem.Play();
+        }
     }
 
-    IEnumerator NewLevel(){
-        yield return new WaitForSecondsRealtime(1f);
+    private void OnTriggerExit2D(Collider2D other) {
+        if(other.gameObject.tag.Equals("Prevent")){
+            groundParticleSystem.Stop();
+        }
+    }
+    IEnumerator NewLevel()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
         SceneManager.LoadScene(0);
     }
 
