@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class UiHandler : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class UiHandler : MonoBehaviour
     [SerializeField] TextMeshProUGUI musicOff;
     [Header("Canvas playing")]
     public Canvas playingCavas;
+    public Slider sliderWay;
+    public LvManager lvManager;
     [Header("Character Canvas")]
     [SerializeField] Canvas CharacterCanvas;
     [Header("StartPont")]
@@ -37,16 +40,24 @@ public class UiHandler : MonoBehaviour
 
     void Start()
     {       
-            AudioPlayerSoure1 =AudioPlayer.GetComponent<AudioSource>();
+            AudioPlayerSoure1 = AudioPlayer.GetComponent<AudioSource>();
+            sliderWay.maxValue =lvManager.transform.InverseTransformPoint(GameObject.Find("finalpoint").transform.position).x - startPoint.transform.position.x;
+            sliderWay.value = 0;
+           
+    }
+
+    void Update() {
+        if(clone !=null){
+            sliderWay.value = lvManager.transform.InverseTransformPoint(GameObject.Find("finalpoint").transform.position).x - (lvManager.transform.InverseTransformPoint(GameObject.Find("finalpoint").transform.position).x - clone.transform.position.x);
+        }
+        
     }
     public void startPlay()
     {
         mainCamera.setMainCameraMove(true);
         loadingCanvas.gameObject.SetActive(false);
         playingCavas.gameObject.SetActive(true);
-        
         clone = Instantiate(player[characterChoise], startPoint.transform.position, Quaternion.identity);
-
     }
 
     public void settingPlayMusic()

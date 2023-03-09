@@ -14,7 +14,9 @@ public class PlayerCripts : MonoBehaviour
 
     Rigidbody2D rb2d;
     AudioPlayer audioPlayer;
+    Animator animator;
     FollowingCamera followingCamera;
+    
     private void Awake()
     {
         audioPlayer = FindObjectOfType<AudioPlayer>();
@@ -26,6 +28,7 @@ public class PlayerCripts : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
+        animator = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -54,9 +57,8 @@ public class PlayerCripts : MonoBehaviour
                 rb2d.transform.position = new Vector2(rb2d.transform.position.x, rb2d.transform.position.y + 1f);
                 Instantiate(square, gp.position, transform.rotation);
                 audioPlayer.playDropEggsClip();
-                Debug.Log(Application.platform );
                 
-                Handheld.Vibrate();
+                // Handheld.Vibrate();
                 
 
             }
@@ -82,6 +84,9 @@ public class PlayerCripts : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Block"))
         {
+            Handheld.Vibrate();
+            // this.rb2d.AddForceAtPosition((Vector2.left + Vector2.up) * 2f, base.transform.position, ForceMode2D.Impulse);
+            animator.SetBool("isDead",true);
             followingCamera.setMainCameraMove(false);
             audioPlayer.playCollideClip();
             StartCoroutine(routine: NewLevel());
@@ -98,7 +103,7 @@ public class PlayerCripts : MonoBehaviour
     }
     IEnumerator NewLevel()
     {
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(1.5f);
         SceneManager.LoadScene(0);
     }
 

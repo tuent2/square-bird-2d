@@ -35,7 +35,8 @@ public class UIGameDisplay : MonoBehaviour
         }
     }
 
-    // public void getTimeShow(){
-        
-    // }
+    public string getTimeOfTextMesh(){
+        return time.text;
+    }
+
 }
