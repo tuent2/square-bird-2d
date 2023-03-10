@@ -6,16 +6,12 @@ using UnityEngine.UI;
 using TMPro;
 public class WinPoint : MonoBehaviour
 {
-    BoxCollider2D boxCollider2D;
     UIGameDisplay time;
-    
+    UiHandler handler;
+    int Music_status1;
     void Start()
     {
-        boxCollider2D = GetComponent<BoxCollider2D>();
-        // lvManager = GameObject.Find("Lv Manager").GetComponent<LvManager>();
-       
-    //    time = GameObject.Find("PlayingCanvas") 
-        
+
     }
 
     // Update is called once per frame
@@ -26,13 +22,21 @@ public class WinPoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.tag == "Player" ){
-            time = GameObject.Find("PlayingCanvas").GetComponent<UIGameDisplay>();
+            time = GameObject.Find("Playing Canvas").GetComponent<UIGameDisplay>();
             int timeValue;
             int.TryParse(time.getTimeOfTextMesh(),out timeValue);
             PlayerPrefs.SetInt("TimePlay",timeValue);
             Debug.Log(GameObject.Find("PlayingCanvas")  );
             PlayerPrefs.SetInt("Score",PlayerPrefs.GetInt("Score") + 13);
             PlayerPrefs.SetInt("Current_Level", (PlayerPrefs.GetInt("Current_Level")+1));
+            
+            // handler = GameObject.Find("Ui Handler").GetComponent<UiHandler>();      
+            // if(handler.getMusicStatus() == true){
+            //     Music_status1 = 1;
+            // }else if (handler.getMusicStatus() == false){
+            //     Music_status1 = 0;
+            // }
+            // PlayerPrefs.SetInt("Music_status",Music_status1);
             StartCoroutine(routine: NewLevel());
         }
     }

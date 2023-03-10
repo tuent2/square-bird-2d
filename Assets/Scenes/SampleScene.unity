@@ -2932,7 +2932,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 586752685}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1185425185}
+        m_TargetAssemblyTypeName: UiHandler, Assembly-CSharp
+        m_MethodName: turnOfVibrate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &586752685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4919,6 +4931,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingCanvas: {fileID: 216932307}
+  vibrateOff: {fileID: 1565626077}
+  isVibrate: 0
   musicOff: {fileID: 1171446668}
   playingCavas: {fileID: 989820893}
   sliderWay: {fileID: 1655216081}
@@ -7218,7 +7232,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.4
+  m_fontSize: 35.25
   m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -8459,7 +8473,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.65
+  m_fontSize: 34.75
   m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9830,7 +9844,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38.2
+  m_fontSize: 46.25
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1

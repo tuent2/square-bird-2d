@@ -16,11 +16,13 @@ public class PlayerCripts : MonoBehaviour
     AudioPlayer audioPlayer;
     Animator animator;
     FollowingCamera followingCamera;
+    UiHandler UiHandler;
     
     private void Awake()
     {
         audioPlayer = FindObjectOfType<AudioPlayer>();
         followingCamera = FindAnyObjectByType<FollowingCamera>();
+        UiHandler = FindAnyObjectByType<UiHandler>();
     }
 
 
@@ -58,7 +60,10 @@ public class PlayerCripts : MonoBehaviour
                 Instantiate(square, gp.position, transform.rotation);
                 audioPlayer.playDropEggsClip();
                 
-                // Handheld.Vibrate();
+                if(UiHandler.isVibrate){
+                    Handheld.Vibrate();
+                }
+                
                 
 
             }
