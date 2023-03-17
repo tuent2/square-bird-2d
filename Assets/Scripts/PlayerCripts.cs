@@ -28,6 +28,7 @@ public class PlayerCripts : MonoBehaviour
 
     void Start()
     {
+        
         rb2d = GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         animator = gameObject.GetComponent<Animator>();
@@ -53,11 +54,17 @@ public class PlayerCripts : MonoBehaviour
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
 
-            this.hit = Physics2D.Raycast(rb2d.transform.position + new Vector3(0, 1f, 0), Vector3.up, 0.5f);
+            this.hit = Physics2D.Raycast(rb2d.transform.position + new Vector3(0, 1.1f, 0), Vector3.up, 0.5f);
             if (this.hit.collider == null)
             {
-                rb2d.transform.position = new Vector2(rb2d.transform.position.x, rb2d.transform.position.y + 1f);
-                Instantiate(square, gp.position, transform.rotation);
+                Vector3 position = this.gp.transform.position;
+                Vector3 position2 = position;
+                position.y +=0.25f;
+                rb2d.transform.position = position;
+                // rb2d.transform.position = new Vector2(rb2d.transform.position.x, rb2d.transform.position.y + 1.1f);
+                
+                GameObject gameObject = UnityEngine.Object.Instantiate(square, position2, transform.rotation );
+                // gameObject.transform.SetParent(base.transform);
                 audioPlayer.playDropEggsClip();
                 
                 if(UiHandler.isVibrate){

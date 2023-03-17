@@ -5,17 +5,21 @@ using UnityEngine;
 public class FollowingCamera : MonoBehaviour
 {
     [SerializeField] PlayerCripts playerSpeed;
+
+    GameObject Player;
     Rigidbody2D rb2d;
     bool isMoving = false;
      void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         isMoving = false;
+
     }
     void Update()
     {
         if (isMoving == true)
         {
+            Player =  GameObject.Find("Player"+ PlayerPrefs.GetInt("squarebird_selectedchar"));
             Vector2 playerVerlocity = new Vector2(playerSpeed.getBaseSpeed()-0.06f, rb2d.velocity.y);
             rb2d.velocity = playerVerlocity;
         }
