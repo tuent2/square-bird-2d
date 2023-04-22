@@ -17,7 +17,7 @@ public class PlayerCripts : MonoBehaviour
     Animator animator;
     FollowingCamera followingCamera;
     UiHandler UiHandler;
-    
+    bool isPlaying = false;
     private void Awake()
     {
         audioPlayer = FindObjectOfType<AudioPlayer>();
@@ -28,7 +28,7 @@ public class PlayerCripts : MonoBehaviour
 
     void Start()
     {
-        
+
         rb2d = GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         animator = gameObject.GetComponent<Animator>();
@@ -37,44 +37,49 @@ public class PlayerCripts : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 playerVerlocity = new Vector2(baseSpeed, rb2d.velocity.y);
-        rb2d.velocity = playerVerlocity;
-        // if (Input.GetKeyDown("space"))
-        // {
-
-        //     this.hit = Physics2D.Raycast(rb2d.transform.position + new Vector3(0,1f,0)  , Vector3.up, 0.5f);
-        //     if (this.hit.collider == null)
-        //     {
-        //         rb2d.transform.position = new Vector2(rb2d.transform.position.x, rb2d.transform.position.y + 1f);
-        //         Instantiate(square, gp.position, transform.rotation);
-        //         audioPlayer.playDropEggsClip();
-        //     }
-        // }
-
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (isPlaying == true)
         {
+            Vector2 playerVerlocity = new Vector2(baseSpeed, rb2d.velocity.y);
+            rb2d.velocity = playerVerlocity;
+            // if (Input.GetKeyDown("space"))
+            // {
 
-            this.hit = Physics2D.Raycast(rb2d.transform.position + new Vector3(0, 1.1f, 0), Vector3.up, 0.5f);
-            if (this.hit.collider == null)
+            //     this.hit = Physics2D.Raycast(rb2d.transform.position + new Vector3(0,1f,0)  , Vector3.up, 0.5f);
+            //     if (this.hit.collider == null)
+            //     {
+            //         rb2d.transform.position = new Vector2(rb2d.transform.position.x, rb2d.transform.position.y + 1f);
+            //         Instantiate(square, gp.position, transform.rotation);
+            //         audioPlayer.playDropEggsClip();
+            //     }
+            // }
+
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
-                Vector3 position = this.gp.transform.position;
-                Vector3 position2 = position;
-                position.y +=0.25f;
-                rb2d.transform.position = position;
-                // rb2d.transform.position = new Vector2(rb2d.transform.position.x, rb2d.transform.position.y + 1.1f);
-                
-                GameObject gameObject = UnityEngine.Object.Instantiate(square, position2, transform.rotation );
-                // gameObject.transform.SetParent(base.transform);
-                audioPlayer.playDropEggsClip();
-                
-                if(UiHandler.isVibrate){
-                    Handheld.Vibrate();
-                }
-                
-                
 
+                this.hit = Physics2D.Raycast(rb2d.transform.position + new Vector3(0, 1.1f, 0), Vector3.up, 0.5f);
+                if (this.hit.collider == null)
+                {
+                    Vector3 position = this.gp.transform.position;
+                    Vector3 position2 = position;
+                    position.y += 0.25f;
+                    rb2d.transform.position = position;
+                    // rb2d.transform.position = new Vector2(rb2d.transform.position.x, rb2d.transform.position.y + 1.1f);
+
+                    GameObject gameObject = UnityEngine.Object.Instantiate(square, position2, transform.rotation);
+                    // gameObject.transform.SetParent(base.transform);
+                    audioPlayer.playDropEggsClip();
+
+                    if (UiHandler.isVibrate)
+                    {
+                        Handheld.Vibrate();
+                    }
+
+
+
+                }
             }
         }
+
     }
 
     // private void OnMouseDown() {
@@ -92,24 +97,31 @@ public class PlayerCripts : MonoBehaviour
         return baseSpeed;
     }
 
+    public void setIsPlaying()
+    {
+        isPlaying = true;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag.Equals("Block"))
         {
             Handheld.Vibrate();
             // this.rb2d.AddForceAtPosition((Vector2.left + Vector2.up) * 2f, base.transform.position, ForceMode2D.Impulse);
-            animator.SetBool("isDead",true);
-            followingCamera.setMainCameraMove(false);
+            animator.SetBool("isDead", true);
             audioPlayer.playCollideClip();
             StartCoroutine(routine: NewLevel());
         }
-        if(other.gameObject.tag.Equals("Prevent")){
+        if (other.gameObject.tag.Equals("Prevent"))
+        {
             groundParticleSystem.Play();
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other) {
-        if(other.gameObject.tag.Equals("Prevent")){
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag.Equals("Prevent"))
+        {
             groundParticleSystem.Stop();
         }
     }

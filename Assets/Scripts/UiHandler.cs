@@ -41,7 +41,7 @@ public class UiHandler : MonoBehaviour
         {
             this.characterChoise = PlayerPrefs.GetInt("squarebird_selectedchar");
         }
-
+        clone = Instantiate(player[characterChoise], startPoint.transform.position, Quaternion.identity);
     }
 
     void Start()
@@ -69,6 +69,8 @@ public class UiHandler : MonoBehaviour
         sliderWay.value = 0;
         isVibrate = true;
         vibrateOff.enabled = false;
+        
+        
     }
 
     void Update()
@@ -81,10 +83,10 @@ public class UiHandler : MonoBehaviour
     }
     public void startPlay()
     {
-        mainCamera.setMainCameraMove(true);
+        
         loadingCanvas.gameObject.SetActive(false);
         playingCavas.gameObject.SetActive(true);
-        clone = Instantiate(player[characterChoise], startPoint.transform.position, Quaternion.identity);
+        FindObjectOfType<PlayerCripts>().setIsPlaying();
     }
 
     public void settingPlayMusic()
